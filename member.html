@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Daftar Member PF Gym</title>
+  <meta name="description" content="Form pendaftaran member PF Gym Jogja. Isi data, kirim via WhatsApp dan mulai latihan dengan paket terjangkau.">
+  <link rel="canonical" href="https://pfgym.id/member.html">
+  <meta property="og:title" content="Daftar Member PF Gym Jogja">
+  <meta property="og:description" content="Isi formulir member PF Gym dan mulai latihan di Condongcatur/Kasihan dengan fasilitas lengkap.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://pfgym.id/member.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="styles.css?v=25">
+</head>
+<body>
+  <header class="header">
+    <a href="index.html#top" class="logo" aria-label="PF Gym & Fitness">
+      <img src="pfgymlogo.png?v=3" alt="PF Gym & Fitness Logo" />
+    </a>
+    <nav class="nav">
+      <a href="index.html#top" class="nav-link" data-i18n="nav_home">Beranda</a>
+      <a href="about.html" class="nav-link" data-i18n="nav_about">Tentang Kami</a>
+      <a href="index.html#testi" class="nav-link" data-i18n="nav_testi">Testimoni</a>
+      <a href="bmi.html" class="nav-link" data-i18n="nav_bmi">Tes BMI</a>
+      <span class="lang-switch"><a href="index.html" data-lang="id" class="active">IN</a><a href="index-en.html" data-lang="en">ENG</a></span>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu"><i class="bi bi-list"></i></button>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html#top" class="m-item">Beranda</a>
+      <a href="about.html" class="m-item">Tentang Kami</a>
+      <a href="index.html#testi" class="m-item">Testimoni</a>
+      <a href="bmi.html" class="m-item">Tes BMI</a>
+      <a href="login.html" class="m-item">Login</a>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:8px 0">
+      <div style="display:flex;gap:8px;padding:4px 8px">
+        <a href="index.html" class="m-item lang active" style="flex:1;text-align:center">IN</a>
+        <a href="index-en.html" class="m-item lang" style="flex:1;text-align:center">ENG</a>
+      </div>
+    </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
+  </header>
+
+  <main class="page-dark" style="padding-top:100px;padding-bottom:80px">
+    <section class="member" style="gap:16px">
+      <div style="width:100%;max-width:900px;display:flex;align-items:center;justify-content:space-between">
+        <a href="index.html#harga" class="back-btn"><i class="bi bi-arrow-left"></i> Kembali</a>
+        <h1 class="page-title" data-i18n="member_title">Formulir Pendaftaran</h1>
+        <span></span>
+      </div>
+      <div class="form-card">
+      <div id="formErrors" class="form-errors" style="display:none"></div>
+      <form id="memberForm" class="form">
+        <div class="form-row">
+          <label for="nama" data-i18n="member_name">Nama</label>
+          <input id="nama" name="nama" type="text" required>
+        </div>
+        <div class="form-row">
+          <label for="jk" data-i18n="member_gender">Jenis Kelamin</label>
+          <select id="jk" name="jk" required>
+            <option value="" selected>Pilih</option>
+            <option value="Laki-laki">Laki-laki</option>
+            <option value="Perempuan">Perempuan</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="tempatLahir" data-i18n="member_birthplace">Tempat Lahir</label>
+          <input id="tempatLahir" name="tempatLahir" type="text" required>
+        </div>
+        <div class="form-row">
+          <label for="tglLahir" data-i18n="member_birthdate">Tanggal Lahir</label>
+          <input id="tglLahir" name="tglLahir" type="date" required>
+        </div>
+        <div class="form-row">
+          <label for="agama" data-i18n="member_religion">Agama</label>
+          <select id="agama" name="agama" required>
+            <option value="" selected>Pilih</option>
+            <option value="Islam">Islam</option>
+            <option value="Kristen Protestan">Kristen Protestan</option>
+            <option value="Katolik">Katolik</option>
+            <option value="Hindu">Hindu</option>
+            <option value="Buddha">Buddha</option>
+            <option value="Konghucu">Konghucu</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="pekerjaan" data-i18n="member_job">Pekerjaan</label>
+          <select id="pekerjaan" name="pekerjaan" required>
+            <option value="" selected>Pilih</option>
+            <option value="Karyawan Swasta">Karyawan swasta</option>
+            <option value="Wiraswasta">Wiraswasta</option>
+            <option value="IRT">IRT</option>
+            <option value="Pelajar/Mahasiswa">Pelajar/mhs</option>
+            <option value="Guru/Dosen">Guru/Dosen</option>
+            <option value="Dokter/Tenaga Medis">Dokter/tenaga medis</option>
+            <option value="PNS/ASN">PNS/asn</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+        </div>
+        <div class="form-row" id="pekerjaanLainRow" style="display:none">
+          <label for="pekerjaanLain">Pekerjaan (lainnya)</label>
+          <input id="pekerjaanLain" name="pekerjaanLain" type="text" placeholder="Tuliskan pekerjaan Anda">
+        </div>
+        <div class="form-row" style="grid-column:span 2">
+          <label for="alamat" data-i18n="member_address">Alamat di Jogja</label>
+          <textarea id="alamat" name="alamat" required></textarea>
+        </div>
+        <div class="form-row">
+          <label for="wa" data-i18n="member_wa">Nomor WhatsApp</label>
+          <input id="wa" name="wa" type="tel" placeholder="08xxxxxxxxxx" required>
+        </div>
+        <div class="form-row">
+          <label for="email" data-i18n="member_email">Email</label>
+          <input id="email" name="email" type="email">
+        </div>
+        <div class="form-row">
+          <label for="lokasi" data-i18n="member_branch">Cabang</label>
+          <select id="lokasi" name="lokasi" required>
+            <option value="" selected>Pilih</option>
+            <option value="Condongcatur">Condongcatur</option>
+            <option value="Kasihan, Bantul">Kasihan, Bantul</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="paket" data-i18n="member_package">Pilih Paket</label>
+          <select id="paket" name="paket" required>
+            <option value="" selected>Pilih</option>
+            <option value="Harian 25k">Harian 25k</option>
+            <option value="1 Bulan All Member 149k">1 Bulan All Member 149k</option>
+            <option value="1 Bulan Couple 129k">1 Bulan Couple 129k</option>
+            <option value="1 Bulan Group 109k">1 Bulan Group 109k</option>
+            <option value="3 Bulan All Member 398k">3 Bulan All Member 398k</option>
+            <option value="3 Bulan Couple 348k">3 Bulan Couple 348k</option>
+            <option value="3 Bulan Group 298k">3 Bulan Group 298k</option>
+            <option value="6 Bulan All Member 698k">6 Bulan All Member 698k</option>
+            <option value="6 Bulan Couple 648k">6 Bulan Couple 648k</option>
+            <option value="6 Bulan Group 548k">6 Bulan Group 548k</option>
+          </select>
+        </div>
+        <button type="submit" class="submit" id="memberSubmit" data-i18n="member_submit">Kirim</button>
+      </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="copy">© PF Gym. All Rights Reserved.</div>
+  </footer>
+
+  <a href="https://wa.me/62895392062783" class="wa-float" aria-label="Chat WhatsApp"><i class="bi bi-whatsapp"></i></a>
+
+  <script src="app.js?v=9"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Feedback • PF Gym</title>
+  <meta name="description" content="Send feedback to PF Gym Jogja. Your suggestions help us improve our services.">
+  <link rel="canonical" href="https://pfgym.id/feedback-en.html">
+  <meta property="og:title" content="Feedback • PF Gym Jogja">
+  <meta property="og:description" content="Share your suggestions to improve PF Gym.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://pfgym.id/feedback-en.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="styles.css?v=44">
+</head>
+<body>
+  <header class="header">
+    <a href="index-en.html#top" class="logo" aria-label="PF Gym & Fitness">
+      <img src="pfgymlogo.png?v=3" alt="PF Gym & Fitness Logo" />
+    </a>
+    <nav class="nav">
+      <a href="index-en.html#top" class="nav-link">Home</a>
+      <a href="about-en.html" class="nav-link">About</a>
+      <a href="testimoni-en.html" class="nav-link">Testimonials</a>
+      <a href="bmi-en.html" class="nav-link">BMI Test</a>
+    </nav>
+  </header>
+
+  <main class="page-dark" style="padding-top:100px;padding-bottom:80px">
+    <section class="member" style="gap:16px">
+      <div style="width:100%;max-width:900px;display:flex;align-items:center;justify-content:space-between">
+        <a href="index-en.html#top" class="back-btn"><i class="bi bi-arrow-left"></i> Back</a>
+        <h1 class="page-title">Feedback</h1>
+        <span></span>
+      </div>
+      <div class="form-card">
+        <form id="feedbackForm" class="form">
+          <div class="form-row"><label for="fbNama">Name</label><input id="fbNama" type="text" required></div>
+          <div class="form-row"><label for="fbKontak">Contact (WA/Email)</label><input id="fbKontak" type="text" placeholder="optional"></div>
+          <div class="form-row"><label for="fbRating">Rating</label><select id="fbRating"><option value="5">★★★★★</option><option value="4">★★★★</option><option value="3">★★★</option><option value="2">★★</option><option value="1">★</option></select></div>
+          <div class="form-row" style="grid-column:span 2"><label for="fbPesan">Message</label><textarea id="fbPesan" required></textarea></div>
+          <button type="submit" class="submit">Kirim</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="copy">© PF Gym 2025 • <a href="privacy-en.html">Privacy Policy</a> • <a href="feedback-en.html">Feedback</a></div>
+  </footer>
+  <a href="https://wa.me/62895392062783" class="wa-float" aria-label="Chat WhatsApp"><i class="bi bi-whatsapp"></i></a>
+
+  <script>
+    document.addEventListener('DOMContentLoaded',function(){
+      var f=document.getElementById('feedbackForm');
+      f.addEventListener('submit',function(e){ e.preventDefault();
+        var nama=document.getElementById('fbNama').value.trim();
+        var kontak=document.getElementById('fbKontak').value.trim();
+        var rating=document.getElementById('fbRating').value;
+        var pesan=document.getElementById('fbPesan').value.trim();
+        var text='Feedback PF Gym%0A'
+          +'Name: '+encodeURIComponent(nama)+'%0A'
+          +'Contact: '+encodeURIComponent(kontak||'-')+'%0A'
+          +'Rating: '+encodeURIComponent(rating)+'%0A'
+          +'Message: '+encodeURIComponent(pesan);
+        var url='https://wa.me/62895392062783?text='+text;
+        window.open(url,'_blank','noopener');
+      });
+    });
+  </script>
+</body>
+</html>

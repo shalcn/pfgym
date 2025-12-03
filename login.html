@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Login • PF Gym</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="styles.css?v=42">
+</head>
+<body>
+  <header class="header">
+    <a href="index.html#top" class="logo" aria-label="PF Gym & Fitness">
+      <img src="pfgymlogo.png?v=3" alt="PF Gym & Fitness Logo" />
+    </a>
+    <nav class="nav">
+      <a href="index.html#top" class="nav-link" data-i18n="nav_home">Beranda</a>
+      <a href="about.html" class="nav-link" data-i18n="nav_about">Tentang Kami</a>
+      <a href="index.html#testi" class="nav-link" data-i18n="nav_testi">Testimoni</a>
+      <a href="bmi.html" class="nav-link" data-i18n="nav_bmi">Tes BMI</a>
+      <a href="login.html" class="nav-link active" data-i18n="nav_login">Login</a>
+      <span class="lang-switch"><a href="index.html" data-lang="id" class="active">IN</a><a href="index-en.html" data-lang="en">ENG</a></span>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu"><i class="bi bi-list"></i></button>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html#top" class="m-item">Beranda</a>
+      <a href="about.html" class="m-item">Tentang Kami</a>
+      <a href="index.html#testi" class="m-item">Testimoni</a>
+      <a href="bmi.html" class="m-item">Tes BMI</a>
+      <a href="login.html" class="m-item">Login</a>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:8px 0">
+      <div style="display:flex;gap:8px;padding:4px 8px">
+        <a href="index.html" class="m-item lang active" style="flex:1;text-align:center">IN</a>
+        <a href="index-en.html" class="m-item lang" style="flex:1;text-align:center">ENG</a>
+      </div>
+    </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
+  </header>
+
+  <main class="page-dark" style="padding-top:100px;padding-bottom:80px">
+    <section class="member" style="gap:16px">
+      <div style="width:100%;max-width:560px;display:flex;align-items:center;justify-content:space-between">
+        <a href="index.html#top" class="back-btn"><i class="bi bi-arrow-left"></i> Kembali</a>
+        <h1 class="page-title" data-i18n="login_title">Login</h1>
+        <span></span>
+      </div>
+      <div class="form-card">
+        <form id="pfLoginForm" style="display:grid;gap:12px" autocomplete="off">
+          <label>Username<input id="pfUser" type="text" placeholder="Username" style="padding:10px;border-radius:12px" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
+          <label>Password<input id="pfPass" type="password" placeholder="Password" style="padding:10px;border-radius:12px" autocomplete="off"></label>
+          <button type="button" id="pfShow" class="pwd-toggle">Lihat Password</button>
+          <button type="submit" class="cta">LOGIN</button>
+          <div id="loginMsg" class="form-errors" style="display:none"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="copy">© PF Gym. All Rights Reserved.</div>
+  </footer>
+  <a href="https://wa.me/62895392062783" class="wa-float" aria-label="Chat WhatsApp"><i class="bi bi-whatsapp"></i></a>
+  <script>
+    window.FIREBASE_ENABLED=true;
+    window.FIREBASE_CONFIG={
+      apiKey:"AIzaSyAG-bupL2ytutqB2wb4RwqjiUViqEgmPso",
+      authDomain:"pfgym-eba3a.firebaseapp.com",
+      projectId:"pfgym-eba3a",
+      storageBucket:"pfgym-eba3a.firebasestorage.app",
+      messagingSenderId:"979974831658",
+      appId:"1:979974831658:web:ba12cbab7fbc9370ae4d53",
+      measurementId:"G-6EWGZ0VCY8"
+    };
+    window.FIREBASE_OWNER_EMAILS=['pfgymowner@gmail.com','physicalfitnessjogja@gmail.com'];
+    try{ localStorage.setItem('PF_FIREBASE_OWNER_EMAILS', JSON.stringify(window.FIREBASE_OWNER_EMAILS)); }catch(_){}
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="firebase.js?v=1"></script>
+  <script src="app.js?v=4"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+        var form = document.getElementById('pfLoginForm');
+        if(!form) return;
+        var msg=document.getElementById('loginMsg');
+        var show=function(t){ if(msg){ msg.style.display='block'; msg.textContent=t; } else { alert(t); } };
+        var hashHex=function(s){ try{ return crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)).then(function(buf){ var h=Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,'0') }).join(''); return h; }); }catch(_){ return Promise.resolve(s) } };
+        var getAuth=function(email){
+          email=(email||'').toLowerCase();
+          return new Promise(function(resolve){
+            try{
+              var raw=localStorage.getItem('PF_AUTH_'+email);
+              if(raw){ try{ var obj=JSON.parse(raw); if(obj && obj.user && obj.passHash){ resolve(obj); return; } }catch(_){ }
+              }
+              if(window.firebaseUtil && window.firebaseUtil.enabled){ window.firebaseUtil.loadAuth(email).then(function(d){ if(d && d.user && d.passHash){ try{ localStorage.setItem('PF_AUTH_'+email, JSON.stringify(d)); }catch(_){} resolve(d); } else { resolve(null); } }).catch(function(){ resolve(null) }); }
+              else { resolve(null); }
+            }catch(_){ resolve(null); }
+          });
+        };
+        document.getElementById('pfShow').addEventListener('click',function(){ var i=document.getElementById('pfPass'); i.type=(i.type==='password'?'text':'password'); this.textContent=(i.type==='password'?'Lihat Password':'Sembunyikan'); });
+        form.addEventListener('submit', function(e){
+          e.preventDefault();
+          var uInput = document.getElementById('pfUser').value.trim();
+          var pInput = document.getElementById('pfPass').value.trim();
+          try{
+            if(!(window.firebaseUtil && window.firebaseUtil.enabled)) return show('data tidak tersedia');
+            show('Membuka login Google...');
+            window.firebaseUtil.login().then(function(){
+              var me = (window.firebaseUtil.user() && window.firebaseUtil.user().email || '').toLowerCase();
+              var defUser='admin';
+              var defPass='admin';
+              getAuth(me).then(function(cfg){
+                var expectUser = (cfg && cfg.user) ? cfg.user : defUser;
+                var expectHashPromise = (cfg && cfg.passHash) ? Promise.resolve(cfg.passHash) : hashHex(defPass);
+                expectHashPromise.then(function(expectHash){ hashHex(pInput).then(function(givenHash){
+                  var userOk = (uInput===expectUser);
+                  var passOk = (givenHash===expectHash);
+                  if(!userOk || !passOk){ show('username/password tidak tersedia'); window.firebaseUtil.logout(); return; }
+                  if(window.firebaseUtil.isOwner && window.firebaseUtil.isOwner()){ location.href='admin.html'; } else { show('data tidak tersedia'); window.firebaseUtil.logout(); }
+                }); });
+              });
+            }).catch(function(){ show('data tidak tersedia'); });
+          }catch(_){ show('data tidak tersedia'); }
+        });
+      });
+    </script>
+</body>
+</html>

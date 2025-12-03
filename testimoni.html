@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Testimoni PF Gym</title>
+  <meta name="description" content="Testimoni member PF Gym Jogja di Condongcatur & Kasihan, Bantul. Lihat pengalaman mereka dengan fasilitas lengkap dan harga terjangkau.">
+  <link rel="canonical" href="https://pfgym.id/testimoni.html">
+  <meta property="og:title" content="Testimoni PF Gym Jogja">
+  <meta property="og:description" content="Ulasan member PF Gym: tempat nyaman, staff ramah, paket hemat.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://pfgym.id/testimoni.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="styles.css?v=43">
+</head>
+<body>
+  <header class="header">
+    <a href="index.html#top" class="logo" aria-label="PF Gym & Fitness">
+      <img src="pfgymlogo.png?v=3" alt="PF Gym & Fitness Logo" />
+    </a>
+    <nav class="nav">
+      <a href="index.html#top" class="nav-link" data-i18n="nav_home">Beranda</a>
+      <a href="about.html" class="nav-link" data-i18n="nav_about">Tentang Kami</a>
+      <a href="index.html#testi" class="nav-link" data-i18n="nav_testi">Testimoni</a>
+      <a href="bmi.html" class="nav-link" data-i18n="nav_bmi">Tes BMI</a>
+      <span class="lang-switch"><a href="index.html" data-lang="id" class="active">IN</a><a href="index-en.html" data-lang="en">ENG</a></span>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu"><i class="bi bi-list"></i></button>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html#top" class="m-item">Beranda</a>
+      <a href="about.html" class="m-item">Tentang Kami</a>
+      <a href="index.html#testi" class="m-item">Testimoni</a>
+      <a href="bmi.html" class="m-item">Tes BMI</a>
+      <a href="login.html" class="m-item">Login</a>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:8px 0">
+      <div style="display:flex;gap:8px;padding:4px 8px">
+        <a href="index.html" class="m-item lang active" style="flex:1;text-align:center">IN</a>
+        <a href="index-en.html" class="m-item lang" style="flex:1;text-align:center">ENG</a>
+      </div>
+    </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
+  </header>
+
+  <main class="page-dark" style="padding-top:100px;padding-bottom:80px">
+    <section class="member" style="gap:16px">
+      <div style="width:100%;max-width:900px;display:flex;align-items:center;justify-content:space-between">
+        <a href="index.html#testi" class="back-btn" data-i18n="back"><i class="bi bi-arrow-left"></i> Kembali</a>
+        <h1 class="page-title" data-i18n="testi_title">Testimoni PF Gym</h1>
+        <span></span>
+      </div>
+      <div class="form-card" id="testiCard" style="display:grid;gap:16px"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="copy">© PF Gym. All Rights Reserved.</div>
+  </footer>
+  <a href="https://wa.me/62895392062783" class="wa-float" aria-label="Chat WhatsApp"><i class="bi bi-whatsapp"></i></a>
+  <script src="app.js?v=4"></script>
+  <script>
+    (function(){
+      function q(name){ const u=new URL(location.href); return u.searchParams.get(name); }
+      function stars(n){ let s=''; for(let i=0;i<5;i++){ s += '<i class="bi '+(i<n?'bi-star-fill':'bi-star')+'"></i>'; } return s; }
+      var rootMap={
+        'reffrain':'01.png','pilipus_tana':'02.png','aisyah_fatkhi':'03.png','rengginat_aji_hapcoro':'04.png','affiah_puspitaliza':'05.png','dinda_lg':null,
+        'santi_hartanti_k':'1k.png','aditya_rizki_ramadhan_k':'2k.png','aura_santika_k':'3k.png','dinda_k':'4k.png','shelvi_saputri_k':'5k.png',
+        'riski_fadilah_k':null,'isabela_krisanti_k':null,'agung_storeid_k':null,'mokhamaad_nurfiazin_k':null
+      };
+      var id=q('id');
+      var card=document.getElementById('testiCard');
+      if(!id){ card.innerHTML='<div class="bmi-badge yellow">ID testimoni tidak ditemukan</div>'; return; }
+      fetch('testimonials.json?v='+Date.now())
+        .then(function(r){return r.json()})
+        .then(function(list){ var item=list.find(function(x){return x.id===id}); if(!item){ card.innerHTML='<div class="bmi-badge yellow">Data testimoni tidak tersedia</div>'; return; }
+          var html=''; html += '<div class="card" style="padding:16px;border-radius:16px">';
+          html += '<div style="display:flex;align-items:center;justify-content:space-between"><strong>'+item.name+'</strong><span class="testi-stars">'+stars(item.stars||5)+'</span></div>';
+          html += '<p style="margin-top:8px">'+(item.text||'')+'</p>';
+          html += '</div>';
+          html += '<div id="imgWrap" style="display:grid;gap:16px"></div>';
+          card.innerHTML=html;
+          var imgWrap=document.getElementById('imgWrap');
+          function addImage(src){ var img=new Image(); img.loading='lazy'; img.src=src; img.alt=item.name; img.style.borderRadius='16px'; img.style.boxShadow='0 10px 24px rgba(0,0,0,.35)'; img.onerror=function(){ img.remove(); }; imgWrap.appendChild(img); }
+          var root=rootMap[id]; if(root){ addImage(root); }
+          var tryList=['1.jpg','2.jpg','3.jpg','1.png','2.png','3.png'];
+          tryList.forEach(function(fname){ addImage('testi/'+id+'/'+fname); });
+        })
+        .catch(function(){ card.innerHTML='<div class="bmi-badge yellow">Gagal memuat data</div>'; });
+    })();
+  </script>
+</body>
+</html>

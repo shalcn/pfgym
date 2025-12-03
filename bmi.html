@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Tes BMI - PF Gym</title>
+  <meta name="description" content="Hitung BMI online di PF Gym Jogja. Cek indeks massa tubuh untuk mulai latihan yang sesuai.">
+  <link rel="canonical" href="https://pfgym.id/bmi.html">
+  <meta property="og:title" content="Tes BMI - PF Gym Jogja">
+  <meta property="og:description" content="Hitung BMI online dan dapatkan rekomendasi latihan pemula di PF Gym Jogja.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://pfgym.id/bmi.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="styles.css?v=25">
+</head>
+<body>
+  <header class="header">
+    <a href="index.html#top" class="logo" aria-label="PF Gym & Fitness">
+      <img src="pfgymlogo.png?v=3" alt="PF Gym & Fitness Logo" />
+    </a>
+    <nav class="nav">
+      <a href="index.html#top" class="nav-link" data-i18n="nav_home">Beranda</a>
+      <a href="about.html" class="nav-link" data-i18n="nav_about">Tentang Kami</a>
+      <a href="index.html#testi" class="nav-link" data-i18n="nav_testi">Testimoni</a>
+      <a href="bmi.html" class="nav-link active" data-i18n="nav_bmi">Tes BMI</a>
+      <span class="lang-switch"><a href="index.html" data-lang="id" class="active">IN</a><a href="index-en.html" data-lang="en">ENG</a></span>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu"><i class="bi bi-list"></i></button>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html#top" class="m-item">Beranda</a>
+      <a href="about.html" class="m-item">Tentang Kami</a>
+      <a href="index.html#testi" class="m-item">Testimoni</a>
+      <a href="bmi.html" class="m-item">Tes BMI</a>
+      <a href="login.html" class="m-item">Login</a>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:8px 0">
+      <div style="display:flex;gap:8px;padding:4px 8px">
+        <a href="index.html" class="m-item lang active" style="flex:1;text-align:center">IN</a>
+        <a href="index-en.html" class="m-item lang" style="flex:1;text-align:center">ENG</a>
+      </div>
+    </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
+  </header>
+
+  <main class="page-dark" style="padding-top:100px;padding-bottom:80px">
+    <section class="member" style="gap:16px">
+      <div style="width:100%;max-width:900px;display:flex;align-items:center;justify-content:space-between">
+        <a href="index.html#top" class="back-btn"><i class="bi bi-arrow-left"></i> Kembali</a>
+        <h1 class="page-title" data-i18n="bmi_title">Tes BMI</h1>
+        <span></span>
+      </div>
+      <div class="form-card">
+        <form id="bmiForm" class="form">
+          <div class="form-row">
+            <label>Jenis Kelamin</label>
+            <div style="display:flex;gap:10px">
+              <label style="display:inline-flex;align-items:center;gap:6px"><input type="radio" name="gender" id="genderPria" value="Pria" checked><i class="bi bi-gender-male"></i> Pria</label>
+              <label style="display:inline-flex;align-items:center;gap:6px"><input type="radio" name="gender" id="genderWanita" value="Wanita"><i class="bi bi-gender-female"></i> Wanita</label>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="usia">Usia</label>
+            <input id="usia" name="usia" type="number" min="1" max="120" placeholder="contoh: 25" required>
+          </div>
+          <div class="form-row">
+            <label for="berat">Berat (kg)</label>
+            <input id="berat" name="berat" type="number" step="0.1" placeholder="contoh: 70" required>
+          </div>
+          <div class="form-row">
+            <label for="tinggi">Tinggi (cm)</label>
+            <input id="tinggi" name="tinggi" type="number" step="1" placeholder="contoh: 170" required>
+          </div>
+          <button type="submit" class="submit">Hitung BMI</button>
+        </form>
+        <div id="bmiResultBox" style="margin-top:16px;display:none;grid-template-columns:1fr;gap:12px">
+          <div id="bmiValue" style="font-weight:900;font-size:36px"></div>
+          <div id="bmiCategory" style="display:inline-flex;align-items:center;gap:8px"></div>
+          <div class="bmi-scale" style="height:10px;border-radius:10px;background:linear-gradient(90deg,#60a5fa,#22c55e,#f59e0b,#ef4444)"></div>
+          <div id="bmiPointer" class="bmi-pointer" style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:10px solid #facc15;filter:drop-shadow(0 0 2px rgba(0,0,0,.5));position:relative;left:0"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="copy">© PF Gym. All Rights Reserved.</div>
+  </footer>
+
+  <a href="https://wa.me/62895392062783" class="wa-float" aria-label="Chat WhatsApp"><i class="bi bi-whatsapp"></i></a>
+
+  <script src="app.js?v=3"></script>
+</body>
+</html>
