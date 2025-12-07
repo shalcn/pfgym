@@ -26,6 +26,55 @@ document.addEventListener('DOMContentLoaded',function(){
   };
   window.addEventListener('scroll',onScroll,{passive:true});
   onScroll();
+  try{
+    if('serviceWorker' in navigator){ navigator.serviceWorker.register('/sw.js').catch(function(){ /* ignore */ }); }
+  }catch(_){ }
+
+  // PWA install banner (custom prompt)
+  (function(){
+    var installBanner=null; var deferredPrompt=null; var shownKey='pf_pwa_prompted';
+    var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    var recentlyPrompted=function(){ try{ var t=parseInt(localStorage.getItem(shownKey)||'0',10)||0; return Date.now()-t < (7*24*60*60*1000); }catch(_){ return false } };
+    var hide=function(){ if(installBanner){ installBanner.remove(); installBanner=null; } };
+    var show=function(){
+      if(installBanner || recentlyPrompted()) return;
+      installBanner=document.createElement('div');
+      installBanner.style.cssText='position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:14px;background:rgba(10,15,31,.92);border:1px solid rgba(255,255,255,.18);color:#fff;backdrop-filter:saturate(1.2) blur(6px)';
+      var msg=document.createElement('div');
+      msg.innerHTML = isIOS && isSafari ? 'Tambahkan ke Layar Utama: tekan <b>Share</b> → <b>Add to Home Screen</b>' : 'Install PF Gym untuk akses cepat';
+      var actions=document.createElement('div'); actions.style.display='flex'; actions.style.gap='10px';
+      var btn=document.createElement('button'); btn.className='cta'; btn.textContent = isIOS && isSafari ? 'OK' : 'Install';
+      var close=document.createElement('button'); close.className='cta'; close.textContent='Tutup'; close.style.background='#333'; close.style.border='1px solid rgba(255,255,255,.2)';
+      actions.appendChild(btn); actions.appendChild(close);
+      installBanner.appendChild(msg); installBanner.appendChild(actions);
+      document.body.appendChild(installBanner);
+      close.addEventListener('click',function(){ try{ localStorage.setItem(shownKey, String(Date.now())); }catch(_){ } hide(); });
+      btn.addEventListener('click',function(){
+        if(deferredPrompt){
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(function(choice){ try{ localStorage.setItem(shownKey, String(Date.now())); }catch(_){ } hide(); deferredPrompt=null; });
+        } else {
+          try{ localStorage.setItem(shownKey, String(Date.now())); }catch(_){ }
+          hide();
+        }
+      });
+    };
+    window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferredPrompt=e; try{ window._pwaDeferredPrompt=e; }catch(_){ } show(); });
+    window.addEventListener('appinstalled', function(){ try{ localStorage.setItem('pf_pwa_installed','1'); localStorage.setItem(shownKey, String(Date.now())); }catch(_){ } hide(); });
+    // show gentle iOS hint if not standalone and no prompt recently
+    if(isIOS && isSafari && !recentlyPrompted() && !window.navigator.standalone){ setTimeout(show, 1200); }
+  })();
+  window.tryInstallPWA=function(){
+    var ev=window._pwaDeferredPrompt||null;
+    var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+    var isSafari=/^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    if(ev){ ev.prompt(); ev.userChoice.then(function(){ window._pwaDeferredPrompt=null; }); return; }
+    if(isIOS && isSafari){ alert('Tambahkan ke Layar Utama: tekan Share → Add to Home Screen'); return; }
+    alert('Install tersedia setelah kunjungan berulang. Buka beranda lalu coba lagi.');
+  };
+  var pbtn=document.getElementById('pwaInstallBtn'); if(pbtn){ pbtn.addEventListener('click',function(e){ e.preventDefault(); window.tryInstallPWA(); }); }
+  var pbtnm=document.getElementById('pwaInstallBtnMobile'); if(pbtnm){ pbtnm.addEventListener('click',function(e){ e.preventDefault(); window.tryInstallPWA(); }); }
   var lang = localStorage.getItem('pf_lang') || 'id';
   function applyLang(){
     var dicts={
@@ -235,12 +284,13 @@ document.addEventListener('DOMContentLoaded',function(){
     modal.classList.add('open');
   });
 
-  // Override updateOpenStatus to support 7-day listing, pill status, and manual toggle
+  // Single source of truth for OPEN pill: respect cfg.openDay and closed flags
   updateOpenStatus = function(){
     var list=document.querySelector('.hours-list');
     if(!list) return;
     try{
       var cfg=window._hoursCfg || (loadHours && loadHours());
+      var openDay=(cfg && cfg.openDay) ? (cfg.openDay+'') : '';
       var lang=document.documentElement.lang||'';
       var mapENtoID={'Monday':'Senin','Tuesday':'Selasa','Wednesday':'Rabu','Thursday':'Kamis','Friday':'Jumat','Saturday':'Sabtu','Sunday':'Minggu'};
       list.querySelectorAll('li').forEach(function(li){
@@ -251,13 +301,14 @@ document.addEventListener('DOMContentLoaded',function(){
         var indicator=spans[2];
         if(!indicator){indicator=document.createElement('span');li.appendChild(indicator)}
         var cfgDay = cfg ? cfg[label] : null;
-        if(!cfgDay){indicator.textContent='';indicator.classList.remove('open');return}
-        if(cfgDay.closed){
-          indicator.textContent='';
-          indicator.classList.remove('open');
-        }else{
+        if(!cfgDay){ indicator.textContent=''; indicator.classList.remove('open'); return; }
+        var shouldOpen = !cfgDay.closed && (!openDay || label===openDay);
+        if(shouldOpen){
           indicator.textContent=(lang.toLowerCase()==='en'?'OPEN':'BUKA');
           indicator.classList.add('open');
+        } else {
+          indicator.textContent='';
+          indicator.classList.remove('open');
         }
       });
     }catch(e){/* no-op */}
@@ -449,7 +500,8 @@ document.addEventListener('DOMContentLoaded',function(){
         var c=cfg[key];
         if(!c) return;
         var isClosed = !!c.closed;
-        spans[1].textContent = (c.open||'06:00')+' - '+(c.close||'21:00');
+        var lang=document.documentElement.lang||'';
+        spans[1].textContent = isClosed ? (lang.toLowerCase()==='en'?'Closed':'Tutup') : ((c.open||'06:00')+' - '+(c.close||'21:00'));
         var indicator=spans[2];
         if(!indicator){indicator=document.createElement('span');li.appendChild(indicator)}
         var openDay=(cfg.openDay||'')+'';
@@ -482,7 +534,7 @@ document.addEventListener('DOMContentLoaded',function(){
     }catch(e){ var cfg=loadHours(); window._hoursCfg=cfg; render(cfg); updateOpenStatus(); }
   };
   applyHoursToIndex();
-  try{ window.addEventListener('storage',function(e){ if(e && e.key==='pf_hours'){ try{ var cfg=JSON.parse(e.newValue||'{}'); window._hoursCfg=cfg; var list=document.querySelector('.hours-list'); if(list) { var render=function(cfg){ list.querySelectorAll('li').forEach(function(li){ var spans=li.querySelectorAll('span'); if(spans.length<2) return; var label=spans[0].textContent.trim(); var lang=document.documentElement.lang||''; var key=(lang.toLowerCase()==='en'?({'Monday':'Senin','Tuesday':'Selasa','Wednesday':'Rabu','Thursday':'Kamis','Friday':'Jumat','Saturday':'Sabtu','Sunday':'Minggu'})[label]||label:label); var c=cfg[key]; if(!c) return; spans[1].textContent=(c.open||'06:00')+' - '+(c.close||'21:00'); var indicator=spans[2]; if(!indicator){indicator=document.createElement('span');li.appendChild(indicator)} if(c.closed){indicator.textContent='';indicator.classList.remove('open');} else {indicator.textContent=(lang.toLowerCase()==='en'?'OPEN':'BUKA');indicator.classList.add('open');} }); }; render(cfg); updateOpenStatus(); } }catch(_){ } } }); }catch(_){ }
+  try{ window.addEventListener('storage',function(e){ if(e && e.key==='pf_hours'){ try{ var cfg=JSON.parse(e.newValue||'{}'); window._hoursCfg=cfg; var list=document.querySelector('.hours-list'); if(list) { var render=function(cfg){ var lang=document.documentElement.lang||''; var map={'Monday':'Senin','Tuesday':'Selasa','Wednesday':'Rabu','Thursday':'Kamis','Friday':'Jumat','Saturday':'Sabtu','Sunday':'Minggu'}; var openDay=(cfg.openDay||'')+''; list.querySelectorAll('li').forEach(function(li){ var spans=li.querySelectorAll('span'); if(spans.length<2) return; var labelRaw=spans[0].textContent.trim(); var key=(lang.toLowerCase()==='en'?map[labelRaw]||labelRaw:labelRaw); var c=cfg[key]; if(!c) return; var isClosed=!!c.closed; spans[1].textContent=isClosed ? (lang.toLowerCase()==='en'?'Closed':'Tutup') : ((c.open||'06:00')+' - '+(c.close||'21:00')); var indicator=spans[2]; if(!indicator){indicator=document.createElement('span');li.appendChild(indicator)} var shouldOpen=!isClosed && (!openDay || key===openDay); if(shouldOpen){ indicator.textContent=(lang.toLowerCase()==='en'?'OPEN':'BUKA'); indicator.classList.add('open'); } else { indicator.textContent=''; indicator.classList.remove('open'); } }); }; render(cfg); updateOpenStatus(); } }catch(_){ } } }); }catch(_){ }
 
   
   var adminForm=document.getElementById('hoursAdminForm');
@@ -508,8 +560,21 @@ document.addEventListener('DOMContentLoaded',function(){
     // Prefill immediately with defaults to avoid empty inputs
     applyAdminCfg(defaultCfg);
     try{
-      if(window.firebaseUtil && window.firebaseUtil.enabled){ window.firebaseUtil.loadHours().then(function(c){ applyAdminCfg(c||loadHours()||defaultCfg); }).catch(function(){ applyAdminCfg(loadHours()||defaultCfg); }); }
-      else{ var isPages=(location.host && /github\.io$/.test(location.host)); if(isPages){ fetch('hours.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){ applyAdminCfg(d||loadHours()||defaultCfg); }).catch(function(){ applyAdminCfg(loadHours()||defaultCfg); }); } else { applyAdminCfg(loadHours()||defaultCfg); } }
+      var cached=loadHours();
+      var source=localStorage.getItem('pf_hours_source')||'';
+      if(cached){ applyAdminCfg(cached); }
+      if(source==='local'){
+        // honor local edits; do not override with remote
+      } else if(window.firebaseUtil && window.firebaseUtil.enabled){
+        window.firebaseUtil.loadHours().then(function(c){ applyAdminCfg(c||cached||defaultCfg); }).catch(function(){
+          fetch('hours.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){ applyAdminCfg(d||cached||defaultCfg); }).catch(function(){ applyAdminCfg(cached||defaultCfg); });
+        });
+      } else {
+        fetch('hours.json?v='+Date.now(),{cache:'no-store'})
+          .then(function(r){return r.json()})
+          .then(function(d){ applyAdminCfg(d||cached||defaultCfg); })
+          .catch(function(){ applyAdminCfg(cached||defaultCfg); });
+      }
     }catch(e){ applyAdminCfg(loadHours()||defaultCfg); }
 
     var readFormCfg=function(){
@@ -539,7 +604,7 @@ document.addEventListener('DOMContentLoaded',function(){
         if(window.firebaseUtil && window.firebaseUtil.enabled){
           var u=window.firebaseUtil.user(); if(!u) return alert('Harap login dulu'); if(window.firebaseUtil.isOwner && !window.firebaseUtil.isOwner()) return alert('Akun tidak memiliki akses');
           var openDay=null; Object.keys(cfg).forEach(function(k){ if(!cfg[k].closed) openDay=k; }); cfg.openDay=openDay;
-          window.firebaseUtil.saveHours(cfg).then(function(){ try{ localStorage.setItem('pf_hours', JSON.stringify(cfg)); localStorage.setItem('pf_hours_source','local'); }catch(_){} alert('jam berhasil disimpan'); }).catch(function(){ try{ localStorage.setItem('pf_hours', JSON.stringify(cfg)); localStorage.setItem('pf_hours_source','local'); alert('jam disimpan (lokal)'); }catch(_){ alert('Gagal simpan'); } });
+          window.firebaseUtil.saveHours(cfg).then(function(){ try{ localStorage.setItem('pf_hours', JSON.stringify(cfg)); localStorage.setItem('pf_hours_source','cloud'); }catch(_){} alert('jam berhasil disimpan (cloud)'); }).catch(function(){ try{ localStorage.setItem('pf_hours', JSON.stringify(cfg)); localStorage.setItem('pf_hours_source','local'); alert('jam disimpan (lokal)'); }catch(_){ alert('Gagal simpan'); } });
         } else {
           var openDay=null; Object.keys(cfg).forEach(function(k){ if(!cfg[k].closed) openDay=k; }); cfg.openDay=openDay;
           try{ localStorage.setItem('pf_hours', JSON.stringify(cfg)); localStorage.setItem('pf_hours_source','local'); alert('jam disimpan (lokal)'); }catch(_){ alert('Cloud disabled'); }

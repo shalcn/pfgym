@@ -24,9 +24,27 @@
     <nav class="nav">
       <a href="index-en.html#top" class="nav-link">Home</a>
       <a href="about-en.html" class="nav-link">About</a>
-      <a href="testimoni-en.html" class="nav-link">Testimonials</a>
+      <a href="index-en.html#testi" class="nav-link">Testimonials</a>
       <a href="bmi-en.html" class="nav-link">BMI Test</a>
+      <a href="login.html" class="nav-link">Login</a>
+      <span class="lang-switch"><a href="index.html">IN</a><a href="index-en.html" class="active">ENG</a></span>
+      <button type="button" id="pwaInstallBtn" class="install-btn">Install App</button>
     </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu"><i class="bi bi-list"></i></button>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index-en.html#top" class="m-item">Home</a>
+      <a href="about-en.html" class="m-item">About</a>
+      <a href="index-en.html#testi" class="m-item">Testimonials</a>
+      <a href="bmi-en.html" class="m-item">BMI Test</a>
+      <a href="login.html" class="m-item">Login</a>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:8px 0">
+      <div style="display:flex;gap:8px;padding:4px 8px">
+        <a href="index.html" class="m-item lang" style="flex:1;text-align:center">IN</a>
+        <a href="index-en.html" class="m-item lang active" style="flex:1;text-align:center">ENG</a>
+      </div>
+      <button id="pwaInstallBtnMobile" class="m-item" type="button">Install App</button>
+    </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
   </header>
 
   <main class="page-dark" style="padding-top:100px;padding-bottom:80px">

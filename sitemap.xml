@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://pfgym.id/pfgym</loc></url>
   <url><loc>https://pfgym.id/</loc></url>
+  <url><loc>https://pfgym.id/lokasi-condongcatur</loc></url>
+  <url><loc>https://pfgym.id/lokasi-kasihan</loc></url>
+  <url><loc>https://pfgym.id/lokasi-condongcatur.html</loc></url>
+  <url><loc>https://pfgym.id/lokasi-kasihan.html</loc></url>
+  <url><loc>https://pfgym.id/index-en</loc></url>
   <url><loc>https://pfgym.id/index-en.html</loc></url>
+  <url><loc>https://pfgym.id/about</loc></url>
   <url><loc>https://pfgym.id/about.html</loc></url>
+  <url><loc>https://pfgym.id/about-en</loc></url>
   <url><loc>https://pfgym.id/about-en.html</loc></url>
+  <url><loc>https://pfgym.id/bmi</loc></url>
   <url><loc>https://pfgym.id/bmi.html</loc></url>
+  <url><loc>https://pfgym.id/bmi-en</loc></url>
   <url><loc>https://pfgym.id/bmi-en.html</loc></url>
+  <url><loc>https://pfgym.id/member</loc></url>
   <url><loc>https://pfgym.id/member.html</loc></url>
+  <url><loc>https://pfgym.id/member-en</loc></url>
   <url><loc>https://pfgym.id/member-en.html</loc></url>
+  <url><loc>https://pfgym.id/testimoni</loc></url>
   <url><loc>https://pfgym.id/testimoni.html</loc></url>
+  <url><loc>https://pfgym.id/testimoni-en</loc></url>
   <url><loc>https://pfgym.id/testimoni-en.html</loc></url>
+  <url><loc>https://pfgym.id/privacy</loc></url>
   <url><loc>https://pfgym.id/privacy.html</loc></url>
+  <url><loc>https://pfgym.id/privacy-en</loc></url>
   <url><loc>https://pfgym.id/privacy-en.html</loc></url>
+  <url><loc>https://pfgym.id/feedback</loc></url>
   <url><loc>https://pfgym.id/feedback.html</loc></url>
+  <url><loc>https://pfgym.id/feedback-en</loc></url>
   <url><loc>https://pfgym.id/feedback-en.html</loc></url>
 </urlset>

@@ -26,7 +26,25 @@
       <a href="about.html" class="nav-link">Tentang Kami</a>
       <a href="index.html#testi" class="nav-link">Testimoni</a>
       <a href="bmi.html" class="nav-link">Tes BMI</a>
+      <a href="login.html" class="nav-link">Login</a>
+      <span class="lang-switch"><a href="index.html" data-lang="id" class="active">IN</a><a href="index-en.html" data-lang="en">ENG</a></span>
+      <button type="button" id="pwaInstallBtn" class="install-btn">Install App</button>
     </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu"><i class="bi bi-list"></i></button>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html#top" class="m-item">Beranda</a>
+      <a href="about.html" class="m-item">Tentang Kami</a>
+      <a href="index.html#testi" class="m-item">Testimoni</a>
+      <a href="bmi.html" class="m-item">Tes BMI</a>
+      <a href="login.html" class="m-item">Login</a>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:8px 0">
+      <div style="display:flex;gap:8px;padding:4px 8px">
+        <a href="index.html" class="m-item lang active" style="flex:1;text-align:center">IN</a>
+        <a href="index-en.html" class="m-item lang" style="flex:1;text-align:center">ENG</a>
+      </div>
+      <button id="pwaInstallBtnMobile" class="m-item" type="button">Install App</button>
+    </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
   </header>
 
   <main class="page-dark" style="padding-top:100px;padding-bottom:80px">

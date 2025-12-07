@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>About PF Gym</title>
   <meta name="description" content="Tentang PF Gym Jogja • Visi misi dan komitmen kami menghadirkan gym terjangkau di Condongcatur dan Kasihan, Bantul dengan fasilitas lengkap.">
-  <link rel="canonical" href="https://pfgym.id/about.html">
+  <link rel="canonical" href="https://pfgym.id/about">
   <meta property="og:title" content="Tentang PF Gym Jogja">
   <meta property="og:description" content="Visi misi PF Gym: gym terjangkau di Jogja (Condongcatur & Kasihan) dengan komunitas ramah dan fasilitas lengkap.">
   <meta property="og:type" content="article">
@@ -15,6 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="styles.css?v=43">
+  <link rel="manifest" href="/manifest.webmanifest">
 </head>
 <body>
   <header class="header">
@@ -27,6 +28,7 @@
       <a href="index.html#testi" class="nav-link" data-i18n="nav_testi">Testimoni</a>
       <a href="bmi.html" class="nav-link" data-i18n="nav_bmi">Tes BMI</a>
       <span class="lang-switch"><a href="index.html" data-lang="id" class="active">IN</a><a href="index-en.html" data-lang="en">ENG</a></span>
+      <button type="button" id="pwaInstallBtn" class="install-btn">Install App</button>
     </nav>
     <button class="menu-btn" id="menuBtn" aria-label="Menu"><i class="bi bi-list"></i></button>
     <div class="mobile-menu" id="mobileMenu">
@@ -35,6 +37,7 @@
       <a href="index.html#testi" class="m-item">Testimoni</a>
       <a href="bmi.html" class="m-item">Tes BMI</a>
       <a href="login.html" class="m-item">Login</a>
+      <button id="pwaInstallBtnMobile" class="m-item" type="button">Install App</button>
       <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:8px 0">
       <div style="display:flex;gap:8px;padding:4px 8px">
         <a href="index.html" class="m-item lang active" style="flex:1;text-align:center">IN</a>
@@ -66,6 +69,9 @@
     <div class="copy">© PF Gym. All Rights Reserved.</div>
   </footer>
   <a href="https://wa.me/62895392062783" class="wa-float" aria-label="Chat WhatsApp"><i class="bi bi-whatsapp"></i></a>
-  <script src="app.js?v=4"></script>
+  <script src="app.js?v=30"></script>
 </body>
 </html>
+  <meta name="theme-color" content="#0a0f1f">
+  <link rel="icon" href="pfgymlogo.png?v=3" type="image/png">
+  <link rel="apple-touch-icon" href="pfgymlogo.png?v=3">

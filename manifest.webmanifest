@@ -1,0 +1,14 @@
+{
+  "id": "/",
+  "name": "PF Gym Jogja",
+  "short_name": "PFGym",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#0a0f1f",
+  "background_color": "#0a0f1f",
+  "icons": [
+    { "src": "/pfgymlogo.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/pfgymlogo.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

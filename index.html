@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-  <title>PF Gym & Fitness Jogja</title>
+  <title>PF Gym Jogja — Gym Murah Terdekat di Condongcatur & Kasihan</title>
   <meta name="description" content="PF Gym Jogja murah & terjangkau. Gym terdekat area Condongcatur dan Kasihan (Bantul). Komunitas ramah, fasilitas lengkap, harga hemat.">
   <meta name="keywords" content="gym jogja murah, gym jogja terjangkau, gym jogja terdekat, gym condongcatur, gym kasihan bantul, PF Gym Jogja, fitness jogja">
   <link rel="canonical" href="https://pfgym.id/">
@@ -23,6 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="styles.css?v=44">
+  <link rel="manifest" href="/manifest.webmanifest">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"HealthClub","name":"PF Gym & Fitness Jogja","url":"https://pfgym.id/","email":"physicalfitnessjogja@gmail.com","telephone":"+62 895392062783","areaServed":["Yogyakarta","Condongcatur","Kasihan, Bantul"],"sameAs":["https://www.instagram.com/pfgymandfitness?igsh=dGMwb2QyMHVubTl5","https://www.tiktok.com/@pfgymandfitness?_r=1&_t=ZS-91sji24yUSd","https://youtube.com/@pfgymandfitness?si=tXw3P_EJ4ITTxPmk"],"department":[{"@type":"HealthClub","name":"PF Gym Condongcatur","hasMap":"https://maps.app.goo.gl/wzdf2riX4krWAomk6"},{"@type":"HealthClub","name":"PF Gym Kasihan, Bantul","hasMap":"https://google.com/maps/place/Physical+Fitness+Kasihan/@-7.8292569,110.3010153,14z"}],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"06:00","closes":"21:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday"],"opens":"06:00","closes":"21:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Sunday"],"opens":"08:00","closes":"21:00"}],"priceRange":"$$"}
   </script>
@@ -32,6 +33,12 @@
     {"@type":"Question","name":"Apakah ada gym terdekat di Condongcatur?","acceptedAnswer":{"@type":"Answer","text":"Ya, PF Gym memiliki cabang di area Condongcatur. Lihat peta lokasi pada bagian Lokasi di halaman ini."}},
     {"@type":"Question","name":"Apakah ada gym terdekat di Kasihan, Bantul?","acceptedAnswer":{"@type":"Answer","text":"Ya, PF Gym juga hadir di Kasihan, Bantul dengan fasilitas lengkap dan harga terjangkau."}}
   ]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Organization","name":"PF Gym & Fitness Jogja","url":"https://pfgym.id/","logo":"https://pfgym.id/pfgymlogo.png","sameAs":["https://www.instagram.com/pfgymandfitness?igsh=dGMwb2QyMHVubTl5","https://www.tiktok.com/@pfgymandfitness?_r=1&_t=ZS-91sji24yUSd","https://youtube.com/@pfgymandfitness?si=tXw3P_EJ4ITTxPmk"]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":"PF Gym Jogja","url":"https://pfgym.id/"}
   </script>
 </head>
 <body>
@@ -46,6 +53,7 @@
       <a href="bmi.html" class="nav-link" data-i18n="nav_bmi">Tes BMI</a>
       <a href="login.html" class="nav-link" data-i18n="nav_login">Login</a>
       <span class="lang-switch"><a href="index.html" data-lang="id" class="active">IN</a><a href="index-en.html" data-lang="en">ENG</a></span>
+      <button type="button" id="pwaInstallBtn" class="install-btn">Install App</button>
     </nav>
     <button class="menu-btn" id="menuBtn" aria-label="Menu"><i class="bi bi-list"></i></button>
     <div class="mobile-menu" id="mobileMenu">
@@ -54,6 +62,7 @@
       <a href="index.html#testi" class="m-item">Testimoni</a>
       <a href="bmi.html" class="m-item">Tes BMI</a>
       <a href="login.html" class="m-item">Login</a>
+      <button id="pwaInstallBtnMobile" class="m-item" type="button">Install App</button>
       <hr style="border:none;border-top:1px solid rgba(255,255,255,.12);margin:8px 0">
       <div style="display:flex;gap:8px;padding:4px 8px">
         <a href="index.html" class="m-item lang active" style="flex:1;text-align:center">IN</a>
@@ -67,8 +76,8 @@
   <main id="top">
     <section class="hero">
       <div class="hero-content">
-        <h1 class="headline">Mulai <span class="accent">Transformasi</span> Diri Kamu</h1>
-        <p class="subheadline">Harga terjangkau dengan komunitas yang mendukung di Yogyakarta.</p>
+        <h1 class="headline">Mulai <span class="accent">Transformasi</span> di <span class="accent">Gym Jogja</span></h1>
+        <p class="subheadline">Gym murah terdekat di Condongcatur & Kasihan, komunitas ramah, fasilitas lengkap.</p>
         <a class="cta cta-main" href="#harga">DAFTAR MEMBER</a>
       </div>
       <div class="hero-bg"></div>
@@ -117,10 +126,12 @@
         <div class="loc-card">
           <div class="loc-head"><i class="bi bi-geo-alt-fill"></i> PF Condongcatur</div>
           <a class="loc-link" href="https://maps.app.goo.gl/wzdf2riX4krWAomk6" target="_blank" rel="noopener">Buka di Google Maps</a>
+          <a class="loc-link" href="lokasi-condongcatur.html">Detail Lokasi & Rute</a>
         </div>
         <div class="loc-card">
           <div class="loc-head"><i class="bi bi-geo-alt-fill"></i> PF Kasihan, Bantul</div>
           <a class="loc-link" href="https://google.com/maps/place/Physical+Fitness+Kasihan/@-7.8292569,110.3010153,14z/data=!4m7!3m6!1s0x2e7a57330bc59d5d:0xdaa774a9dd71ba4b!8m2!3d-7.8292569!4d110.3339743!15sChBwaHlzaWNhbCBmaXRuZXNzkgEOZml0bmVzc19jZW50ZXLgAQA!16s%2Fg%2F11t6wmxk_9?coh=164777&entry=tt&shorturl=1" target="_blank" rel="noopener">Buka di Google Maps</a>
+          <a class="loc-link" href="lokasi-kasihan.html">Detail Lokasi & Rute</a>
         </div>
       </div>
     </section>
@@ -343,7 +354,7 @@
       appId:"1:979974831658:web:ba12cbab7fbc9370ae4d53",
       measurementId:"G-6EWGZ0VCY8"
     };
-    window.FIREBASE_OWNER_EMAILS=['pfgymowner@gmail.com','physicalfitnessjogja@gmail.com'];
+    window.FIREBASE_OWNER_EMAILS=['pfgymowner@gmail.com','physicalfitnessjogja@gmail.com','shalcnzee@gmail.com'];
     try{ localStorage.setItem('PF_FIREBASE_OWNER_EMAILS', JSON.stringify(window.FIREBASE_OWNER_EMAILS)); localStorage.setItem('PF_FIREBASE_ENABLED','true'); }catch(_){}
   </script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -354,3 +365,6 @@
   <script src="app.js?v=30"></script>
 </body>
 </html>
+  <meta name="theme-color" content="#0a0f1f">
+  <link rel="icon" href="pfgymlogo.png?v=3" type="image/png">
+  <link rel="apple-touch-icon" href="pfgymlogo.png?v=3">
