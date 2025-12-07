@@ -23,7 +23,7 @@ html,body{overscroll-behavior-x:none;touch-action:pan-y}
 .logo img{display:block;height:auto;max-height:44px;width:auto}
 .logo{display:flex;align-items:center;padding:4px 12px}
 .logo-text{font-weight:900;color:#fff;margin-left:8px;letter-spacing:.3px}
-.nav{display:flex;align-items:center;gap:12px}
+.nav{display:flex;align-items:center;gap:12px;position:absolute;left:50%;transform:translateX(-50%)}
 .lang-switch{display:inline-flex;align-items:center;gap:8px;margin-left:12px}
 .lang-switch a{padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.18);color:#e2e8f0}
 .lang-switch a.active{background:var(--pink) !important;color:#0a0f1f !important;border-color:var(--pink) !important}
