@@ -501,7 +501,7 @@ document.addEventListener('DOMContentLoaded',function(){
         if(!c) return;
         var isClosed = !!c.closed;
         var lang=document.documentElement.lang||'';
-        spans[1].textContent = isClosed ? (lang.toLowerCase()==='en'?'Closed':'Tutup') : ((c.open||'06:00')+' - '+(c.close||'21:00'));
+        spans[1].textContent = (c.open||'06:00')+' - '+(c.close||'21:00');
         var indicator=spans[2];
         if(!indicator){indicator=document.createElement('span');li.appendChild(indicator)}
         var openDay=(cfg.openDay||'')+'';
@@ -534,7 +534,7 @@ document.addEventListener('DOMContentLoaded',function(){
     }catch(e){ var cfg=loadHours(); window._hoursCfg=cfg; render(cfg); updateOpenStatus(); }
   };
   applyHoursToIndex();
-  try{ window.addEventListener('storage',function(e){ if(e && e.key==='pf_hours'){ try{ var cfg=JSON.parse(e.newValue||'{}'); window._hoursCfg=cfg; var list=document.querySelector('.hours-list'); if(list) { var render=function(cfg){ var lang=document.documentElement.lang||''; var map={'Monday':'Senin','Tuesday':'Selasa','Wednesday':'Rabu','Thursday':'Kamis','Friday':'Jumat','Saturday':'Sabtu','Sunday':'Minggu'}; var openDay=(cfg.openDay||'')+''; list.querySelectorAll('li').forEach(function(li){ var spans=li.querySelectorAll('span'); if(spans.length<2) return; var labelRaw=spans[0].textContent.trim(); var key=(lang.toLowerCase()==='en'?map[labelRaw]||labelRaw:labelRaw); var c=cfg[key]; if(!c) return; var isClosed=!!c.closed; spans[1].textContent=isClosed ? (lang.toLowerCase()==='en'?'Closed':'Tutup') : ((c.open||'06:00')+' - '+(c.close||'21:00')); var indicator=spans[2]; if(!indicator){indicator=document.createElement('span');li.appendChild(indicator)} var shouldOpen=!isClosed && (!openDay || key===openDay); if(shouldOpen){ indicator.textContent=(lang.toLowerCase()==='en'?'OPEN':'BUKA'); indicator.classList.add('open'); } else { indicator.textContent=''; indicator.classList.remove('open'); } }); }; render(cfg); updateOpenStatus(); } }catch(_){ } } }); }catch(_){ }
+    try{ window.addEventListener('storage',function(e){ if(e && e.key==='pf_hours'){ try{ var cfg=JSON.parse(e.newValue||'{}'); window._hoursCfg=cfg; var list=document.querySelector('.hours-list'); if(list) { var render=function(cfg){ var lang=document.documentElement.lang||''; var map={'Monday':'Senin','Tuesday':'Selasa','Wednesday':'Rabu','Thursday':'Kamis','Friday':'Jumat','Saturday':'Sabtu','Sunday':'Minggu'}; var openDay=(cfg.openDay||'')+''; list.querySelectorAll('li').forEach(function(li){ var spans=li.querySelectorAll('span'); if(spans.length<2) return; var labelRaw=spans[0].textContent.trim(); var key=(lang.toLowerCase()==='en'?map[labelRaw]||labelRaw:labelRaw); var c=cfg[key]; if(!c) return; var isClosed=!!c.closed; spans[1].textContent=(c.open||'06:00')+' - '+(c.close||'21:00'); var indicator=spans[2]; if(!indicator){indicator=document.createElement('span');li.appendChild(indicator)} var shouldOpen=!isClosed && (!openDay || key===openDay); if(shouldOpen){ indicator.textContent=(lang.toLowerCase()==='en'?'OPEN':'BUKA'); indicator.classList.add('open'); } else { indicator.textContent=''; indicator.classList.remove('open'); } }); }; render(cfg); updateOpenStatus(); } }catch(_){ } } }); }catch(_){ }
 
   
   var adminForm=document.getElementById('hoursAdminForm');

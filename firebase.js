@@ -41,6 +41,14 @@ window.firebaseUtil=(function(){
   var saveHours=function(cfg){ if(!enabled||!db) return Promise.reject('disabled'); if(!isOwner()) return Promise.reject('forbidden'); return hoursDoc().set(cfg,{merge:true}) };
   var settingsDoc=function(){ return db.collection('settings').doc('auth') };
   var loadAuth=function(email){ if(!enabled||!db) return Promise.reject('disabled'); email=(email||((user()&&user().email)||'')).toLowerCase(); return settingsDoc().get().then(function(s){ var d=s.exists?s.data():null; if(!d||!d.accounts) return null; return d.accounts[email]||null; }) };
-  var saveAuth=function(email,payload){ if(!enabled||!db) return Promise.reject('disabled'); if(!isOwner()) return Promise.reject('forbidden'); email=(email||((user()&&user().email)||'')).toLowerCase(); var data={}; data['accounts']= {}; data.accounts[email]=payload; return settingsDoc().set(data,{merge:true}) };
+  var saveAuth=function(email,payload){
+    if(!enabled||!db) return Promise.reject('disabled');
+    if(!isOwner()) return Promise.reject('forbidden');
+    var current=(user()&&user().email||'').toLowerCase();
+    var primary=(Array.isArray(ownerEmails)&&ownerEmails.length?ownerEmails[0]:'').toLowerCase();
+    var target=(email||current).toLowerCase();
+    if(target!==current && current!==primary) return Promise.reject('forbidden_owner_only');
+    var data={}; data['accounts']= {}; data.accounts[target]=payload; return settingsDoc().set(data,{merge:true})
+  };
   return {enabled:enabled, app:app, auth:auth, db:db, login:login, logout:logout, user:user, isOwner:isOwner, ownerEmails:ownerEmails, onAuth:onAuth, loadHours:loadHours, saveHours:saveHours, loadAuth:loadAuth, saveAuth:saveAuth};
 })();

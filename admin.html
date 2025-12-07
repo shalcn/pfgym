@@ -65,7 +65,7 @@
             <button type="button" id="logoutBtn" class="cta">LOGOUT</button>
             <button type="button" id="saveCloudBtn" class="cta">SIMPAN</button>
             <a href="auth-edit.html" class="cta pink">GANTI USERNAME/PASSWORD</a>
-            <button type="button" id="resetAllBtn" class="cta pink" disabled>RESET SEMUA PASSWORD (DEFAULT)</button>
+            <button type="button" id="resetAllBtn" class="cta pink" style="display:none">RESET SEMUA PASSWORD (DEFAULT)</button>
           </div>
           <div id="authStatus" style="margin-top:12px;border-radius:12px;padding:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)"></div>
         </form>
@@ -114,7 +114,7 @@
     (function(){
       var btn=document.getElementById('resetAllBtn'); if(!btn) return;
       var special='pfgymowner@gmail.com';
-      var showIfSpecial=function(){ try{ var u=(window.firebaseUtil && window.firebaseUtil.user)?window.firebaseUtil.user():null; var me=(u&&u.email||'').toLowerCase(); btn.disabled = (me!==special); }catch(_){ btn.disabled=true; } };
+      var showIfSpecial=function(){ try{ var u=(window.firebaseUtil && window.firebaseUtil.user)?window.firebaseUtil.user():null; var me=(u&&u.email||'').toLowerCase(); var isMeSpecial=(me===special); btn.style.display = isMeSpecial ? 'inline-block' : 'none'; btn.disabled = !isMeSpecial; }catch(_){ btn.style.display='none'; btn.disabled=true; } };
       showIfSpecial();
       try{ if(window.firebaseUtil && window.firebaseUtil.onAuth){ window.firebaseUtil.onAuth(showIfSpecial); } }catch(_){}
       var hashHex=function(s){ try{ return crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)).then(function(buf){ return Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,'0') }).join(''); }); }catch(_){ return Promise.resolve(s); } };
@@ -126,7 +126,7 @@
           var payload={user:'admin',passHash:h}; var done=0;
           var saveEach=function(email){ email=(email||'').toLowerCase(); var p=Promise.resolve();
             try{ if(window.firebaseUtil && window.firebaseUtil.enabled){ p=window.firebaseUtil.saveAuth(email,payload).catch(function(){ return Promise.resolve(); }); } }catch(_){ }
-            p.finally(function(){ try{ localStorage.setItem('PF_AUTH_'+email, JSON.stringify(payload)); }catch(_){ } done++; if(done===emails.length){ alert('Semua akun direset ke default'); } });
+            p.finally(function(){ try{ if(me===special || email===me){ localStorage.setItem('PF_AUTH_'+email, JSON.stringify(payload)); } }catch(_){ } done++; if(done===emails.length){ alert('Semua akun direset ke default'); } });
           };
           emails.forEach(saveEach);
         });
