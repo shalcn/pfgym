@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded',function(){
   window.addEventListener('scroll',onScroll,{passive:true});
   onScroll();
   try{
-    if('serviceWorker' in navigator){ navigator.serviceWorker.register('/sw.js').catch(function(){ /* ignore */ }); }
+    if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(function(){ /* ignore */ }); }
   }catch(_){ }
 
   // PWA install banner (custom prompt)
@@ -42,9 +42,9 @@ document.addEventListener('DOMContentLoaded',function(){
       installBanner=document.createElement('div');
       installBanner.style.cssText='position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:14px;background:rgba(10,15,31,.92);border:1px solid rgba(255,255,255,.18);color:#fff;backdrop-filter:saturate(1.2) blur(6px)';
       var msg=document.createElement('div');
-      msg.innerHTML = isIOS && isSafari ? 'Tambahkan ke Layar Utama: tekan <b>Share</b> → <b>Add to Home Screen</b>' : 'Install PF Gym untuk akses cepat';
+      msg.innerHTML = 'Install PF Gym untuk akses cepat';
       var actions=document.createElement('div'); actions.style.display='flex'; actions.style.gap='10px';
-      var btn=document.createElement('button'); btn.className='cta'; btn.textContent = isIOS && isSafari ? 'OK' : 'Install';
+      var btn=document.createElement('button'); btn.className='cta'; btn.textContent = 'Install';
       var close=document.createElement('button'); close.className='cta'; close.textContent='Tutup'; close.style.background='#333'; close.style.border='1px solid rgba(255,255,255,.2)';
       actions.appendChild(btn); actions.appendChild(close);
       installBanner.appendChild(msg); installBanner.appendChild(actions);
@@ -364,6 +364,7 @@ document.addEventListener('DOMContentLoaded',function(){
       var showErr=function(msg){ if(errBox){ errBox.style.display='block'; errBox.textContent=msg; } };
       var clearErr=function(){ if(errBox){ errBox.style.display='none'; errBox.textContent=''; } };
       var nama=document.getElementById('nama').value.trim();
+      var panggilan=(document.getElementById('namaPanggilan')?.value||'').trim();
       var jk=document.getElementById('jk').value;
       var tempat=document.getElementById('tempatLahir').value.trim();
       var tgl=document.getElementById('tglLahir').value;
@@ -392,6 +393,7 @@ document.addEventListener('DOMContentLoaded',function(){
       if(submitBtn){ submitBtn.classList.add('loading'); submitBtn.textContent='Mengirim...'; }
       var msg='Halo PF Gym, saya ingin daftar member.'+
         '%0ANama: '+encodeURIComponent(nama)+
+        (panggilan?('%0ANama Panggilan: '+encodeURIComponent(panggilan)):'')+
         '%0AJenis Kelamin: '+encodeURIComponent(jk)+
         '%0ATempat/Tgl Lahir: '+encodeURIComponent(tempat)+' - '+encodeURIComponent(tgl)+
         '%0AAgama: '+encodeURIComponent(agama)+
