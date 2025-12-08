@@ -36,7 +36,9 @@ document.addEventListener('DOMContentLoaded',function(){
     if(!isStandalone) return;
     try{ if(sessionStorage.getItem('pf_splash_shown')) return; }catch(_){ }
     var splash=document.createElement('div'); splash.className='app-splash';
-    var img=document.createElement('img'); img.src='pwa.png'; img.alt='PF Gym'; splash.appendChild(img);
+    var icon=document.createElement('div'); icon.className='app-icon';
+    var img=document.createElement('img'); img.src='pwa.png'; img.alt='PF Gym'; icon.appendChild(img);
+    splash.appendChild(icon);
     document.body.appendChild(splash);
     setTimeout(function(){ splash.classList.add('hide'); setTimeout(function(){ try{ splash.remove(); }catch(_){ } }, 450); try{ sessionStorage.setItem('pf_splash_shown','1'); }catch(_){ } }, 3000);
   })();
