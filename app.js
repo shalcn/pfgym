@@ -30,6 +30,17 @@ document.addEventListener('DOMContentLoaded',function(){
     if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(function(){ /* ignore */ }); }
   }catch(_){ }
 
+  // In-app splash to extend OS splash to 3s on installed PWA
+  (function(){
+    var isStandalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || (typeof window.navigator!=='undefined' && window.navigator.standalone);
+    if(!isStandalone) return;
+    try{ if(sessionStorage.getItem('pf_splash_shown')) return; }catch(_){ }
+    var splash=document.createElement('div'); splash.className='app-splash';
+    var img=document.createElement('img'); img.src='pwa.png'; img.alt='PF Gym'; splash.appendChild(img);
+    document.body.appendChild(splash);
+    setTimeout(function(){ splash.classList.add('hide'); setTimeout(function(){ try{ splash.remove(); }catch(_){ } }, 450); try{ sessionStorage.setItem('pf_splash_shown','1'); }catch(_){ } }, 3000);
+  })();
+
   // PWA install banner (custom prompt)
   (function(){
     var installBanner=null; var deferredPrompt=null; var shownKey='pf_pwa_prompted';

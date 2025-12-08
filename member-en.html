@@ -61,17 +61,17 @@
       <form id="memberForm" class="form">
         <div class="form-row row-name"><label for="nama">Name</label><input id="nama" name="nama" type="text" required></div>
         <div class="form-row row-nick"><label for="namaPanggilan">Nickname</label><input id="namaPanggilan" name="namaPanggilan" type="text" placeholder="e.g., Andy"></div>
-        <div class="form-row"><label for="jk">Gender</label><select id="jk" name="jk" required><option value="" selected>Choose</option><option>Laki-laki</option><option>Perempuan</option></select></div>
-        <div class="form-row"><label for="tempatLahir">Birthplace</label><input id="tempatLahir" name="tempatLahir" type="text" required></div>
-        <div class="form-row"><label for="tglLahir">Birthdate</label><input id="tglLahir" name="tglLahir" type="date" required></div>
-        <div class="form-row"><label for="agama">Religion</label><select id="agama" name="agama" required><option value="" selected>Choose</option><option>Islam</option><option>Kristen Protestan</option><option>Katolik</option><option>Hindu</option><option>Buddha</option><option>Konghucu</option></select></div>
-        <div class="form-row"><label for="pekerjaan">Occupation</label><select id="pekerjaan" name="pekerjaan" required><option value="" selected>Choose</option><option>Karyawan Swasta</option><option>Wiraswasta</option><option>IRT</option><option>Pelajar/Mahasiswa</option><option>Guru/Dosen</option><option>Dokter/Tenaga Medis</option><option>PNS/ASN</option><option>Lainnya</option></select></div>
+        <div class="form-row row-gender"><label for="jk">Gender</label><select id="jk" name="jk" required><option value="" selected>Choose</option><option>Laki-laki</option><option>Perempuan</option></select></div>
+        <div class="form-row row-birthplace"><label for="tempatLahir">Birthplace</label><input id="tempatLahir" name="tempatLahir" type="text" required></div>
+        <div class="form-row row-birthdate"><label for="tglLahir">Birthdate</label><input id="tglLahir" name="tglLahir" type="date" required></div>
+        <div class="form-row row-religion"><label for="agama">Religion</label><select id="agama" name="agama" required><option value="" selected>Choose</option><option>Islam</option><option>Kristen Protestan</option><option>Katolik</option><option>Hindu</option><option>Buddha</option><option>Konghucu</option></select></div>
+        <div class="form-row row-job"><label for="pekerjaan">Occupation</label><select id="pekerjaan" name="pekerjaan" required><option value="" selected>Choose</option><option>Karyawan Swasta</option><option>Wiraswasta</option><option>IRT</option><option>Pelajar/Mahasiswa</option><option>Guru/Dosen</option><option>Dokter/Tenaga Medis</option><option>PNS/ASN</option><option>Lainnya</option></select></div>
         <div class="form-row" id="pekerjaanLainRow" style="display:none"><label for="pekerjaanLain">Occupation (other)</label><input id="pekerjaanLain" name="pekerjaanLain" type="text" placeholder="Write your occupation"></div>
-        <div class="form-row"><label for="alamat">Address in Jogja</label><textarea id="alamat" name="alamat" required></textarea></div>
-        <div class="form-row"><label for="wa">WhatsApp Number</label><input id="wa" name="wa" type="tel" placeholder="08xxxxxxxxxx" required></div>
-        <div class="form-row"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@example.com"></div>
-        <div class="form-row"><label for="lokasi">Branch</label><select id="lokasi" name="lokasi" required><option value="" selected>Choose</option><option value="PF Gym Condongcatur">PF Gym Condongcatur</option><option value="PF Gym Kasihan">PF Gym Kasihan</option></select></div>
-        <div class="form-row"><label for="paket">Choose Package</label><select id="paket" name="paket" required><option value="" selected>Choose</option><option value="Harian">Daily</option><option value="1 Bulan">1 Month</option><option value="3 Bulan">3 Months</option><option value="6 Bulan">6 Months</option></select></div>
+        <div class="form-row row-address"><label for="alamat">Address in Jogja</label><textarea id="alamat" name="alamat" required></textarea></div>
+        <div class="form-row row-wa"><label for="wa">WhatsApp Number</label><input id="wa" name="wa" type="tel" placeholder="08xxxxxxxxxx" required></div>
+        <div class="form-row row-email"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@example.com"></div>
+        <div class="form-row row-branch"><label for="lokasi">Branch</label><select id="lokasi" name="lokasi" required><option value="" selected>Choose</option><option value="PF Gym Condongcatur">PF Gym Condongcatur</option><option value="PF Gym Kasihan">PF Gym Kasihan</option></select></div>
+        <div class="form-row row-package"><label for="paket">Choose Package</label><select id="paket" name="paket" required><option value="" selected>Choose</option><option value="Harian">Daily</option><option value="1 Bulan">1 Month</option><option value="3 Bulan">3 Months</option><option value="6 Bulan">6 Months</option></select></div>
         <button type="submit" class="submit" id="memberSubmit">Send</button>
       </form>
       </div>
