@@ -185,6 +185,11 @@ background-size:cover;background-position:center}
   .form-card{padding:18px}
   .page-title{font-size:26px;margin:0 0 8px}
 }
+@media (min-width:640px){
+  .member .form{grid-template-columns:1.6fr 1fr}
+  .member .form .row-name{grid-column:1}
+  .member .form .row-nick{grid-column:2}
+}
 @media (max-width:640px){
   .header{min-height:48px;padding:4px 8px;display:grid;grid-template-columns:auto 1fr;align-items:center}
   .logo{padding:2px 6px}
